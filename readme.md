@@ -59,7 +59,7 @@ The application is a simple **Node.js + Express** server with a single endpoint 
   aws configure
   ```
 
-Verified AWS CLI authentication by running:
+- Verified AWS CLI authentication by running:
   ```bash
   aws sts get-caller-identity
   ```
