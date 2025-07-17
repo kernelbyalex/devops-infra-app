@@ -1,67 +1,66 @@
 # DevOps Infra App
 
-🛠️ A complete DevOps project: a minimal web application built with Node.js + Express, containerized with Docker, automated with GitHub Actions, and infrastructure managed via Terraform on AWS.
+🛠️ A complete DevOps project: a minimal Node.js + Express web application, containerized with Docker, automated with GitHub Actions, and infrastructure managed via Terraform on AWS.
 
 ---
 
-## 📦 Description
+## 📦 Project Overview
 
-**DevOps Infra App** is a demo application designed to simulate the role of a DevOps Engineer working on a real project.  
-It will serve as the foundation for:
+**DevOps Infra App** is a demonstration project designed to simulate the workflow of a DevOps Engineer in a real-world environment.  
+It serves as a foundation for:
 
 - CI/CD automation  
-- Deployment to AWS EC2 server  
-- Containerization with Docker  
-- Infrastructure as Code using Terraform  
+- Deployment on AWS EC2  
+- Containerization using Docker  
+- Infrastructure as Code with Terraform  
 - Monitoring with Prometheus + Grafana  
 - Comprehensive technical documentation  
 
-The application is a simple **Node.js + Express** server with a single endpoint (`GET /`) that returns a plain text message — used for testing and health checks.
+The application is a simple **Node.js + Express** server with a single endpoint (`GET /`) returning a plain text message for testing and health checks.
 
 ---
 
 ## 🧰 Technologies Used
 
 - Node.js & Express  
-- Git + GitHub  
 - Docker  
+- Git & GitHub  
 - GitHub Actions (CI/CD)  
-- AWS (EC2, IAM, S3, etc.)  
+- AWS (EC2, IAM, S3)  
 - Terraform  
 - Prometheus + Grafana  
 - Nginx, SSH, Linux  
 
 ---
 
-# Step 2 — Dockerization
+## 🚀 Progress Summary
 
-In this step, we will:
+### 1. Application Setup
 
-- Create a Dockerfile to containerize the Node.js application  
-- Use Docker Compose for easier local development  
-- Build and run the Docker container locally  
-- Update README.md with detailed instructions on Docker usage  
+- Created a minimal Node.js + Express application with basic routing.  
+- Initialized the project with `package.json` and installed dependencies.  
+- Successfully ran the application locally (`npm start`) on port 3000.
 
-This will allow us to run the app consistently across environments and prepare for automated deployment.
+### 2. Docker Containerization
 
-# Step 3 — AWS CLI & IAM User Setup
+- Built a `Dockerfile` based on `node:18-alpine` to containerize the application.  
+- Explained Dockerfile steps: working directory setup, copying source code, installing dependencies, exposing port, and start command.  
+- Tested container locally to ensure consistent environment.  
+- Updated documentation with Docker usage instructions.
 
-In this step, we:
+### 3. AWS CLI & IAM User Setup
 
-- Created a dedicated IAM user in AWS for programmatic access  
-- Configured AWS CLI locally to use this IAM user  
-- Verified CLI access to the AWS account  
+- Created an IAM user in AWS with programmatic access keys.  
+- Encountered initial `SignatureDoesNotMatch` errors due to invalid or expired credentials.  
+- Regenerated Access Key and Secret Access Key, saved securely as CSV.  
+- Configured AWS CLI locally with the new credentials and region (`eu-central-1`) using:
 
----
+  ```bash
+  aws configure
+  ```
 
-### What we did
+Verified AWS CLI authentication by running:
+  ```bash
+  aws sts get-caller-identity
+  ```
 
-1. Created an IAM user named `alex-devops` with **programmatic access** enabled (access keys).  
-2. Assigned the **AdministratorAccess** policy to this user for full permissions (for learning/demo purposes).  
-3. Downloaded the Access Key ID and Secret Access Key for this user.  
-4. Installed and configured AWS CLI locally by running `aws configure` and providing the credentials, default region (`eu-central-1`), and JSON output format.  
-5. Verified the setup with the command:
-
-```bash
-aws sts get-caller-identity
-```
