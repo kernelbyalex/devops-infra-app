@@ -53,12 +53,7 @@ The application is a simple **Node.js + Express** server with a single endpoint 
 - Created an IAM user in AWS with programmatic access keys.  
 - Encountered initial `SignatureDoesNotMatch` errors due to invalid or expired credentials.  
 - Regenerated Access Key and Secret Access Key, saved securely as CSV.  
-- Configured AWS CLI locally with the new credentials and region (`eu-central-1`) using:
-
-  ```bash
-  aws configure
-  ```
-
+- Configured AWS CLI locally with the new credentials and region (`eu-central-1`).
 - Verified AWS CLI authentication by running:
   ```bash
   aws sts get-caller-identity
