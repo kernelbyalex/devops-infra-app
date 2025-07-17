@@ -1,3 +1,7 @@
+alex.aws.pem
+terraform.tfstate
+terraform.tfstate.backup
 node_modules/
-.env
-.terraform/
+devops-infra-app.git
+devops-infra-app.git.bfg-report
+
