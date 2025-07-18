@@ -5,4 +5,4 @@ node_modules/
 devops-infra-app.git
 devops-infra-app.git.bfg-report
 *.swp
-
+.terraform/
