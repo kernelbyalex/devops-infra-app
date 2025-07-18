@@ -82,4 +82,3 @@ The application is a simple **Node.js + Express** server with a single endpoint 
 - Built the Docker image on the EC2 instance, matching the local Dockerfile to ensure consistency.
 - Ran the Docker container on EC2, exposing port 3000 and confirming application availability via the public DNS.
 
-Test deploy vineri 18 iulie 2025, 12:05:01 +0300
