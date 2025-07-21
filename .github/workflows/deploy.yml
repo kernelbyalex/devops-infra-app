@@ -1,0 +1,42 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup SSH keys
+        run: |
+          echo "${{ secrets.BASTION_SSH_KEY }}" > bastion_key.pem
+          chmod 600 bastion_key.pem
+          echo "${{ secrets.APP_SSH_KEY }}" > app_key.pem
+          chmod 600 app_key.pem
+
+      - name: Establish SSH tunnel through Bastion
+        run: |
+          ssh -i bastion_key.pem -o StrictHostKeyChecking=no -N -f -L 2222:${{ secrets.APP_HOST }}:22 ubuntu@${{ secrets.BASTION_HOST }}
+
+      - name: Test SSH connection to App Server via tunnel
+        run: |
+          ssh -i app_key.pem -o StrictHostKeyChecking=no -p 2222 ubuntu@localhost "echo Connected through Bastion!"
+
+      - name: Sync repository files to App Server via tunnel
+        run: |
+          rsync -avz -e "ssh -p 2222 -i app_key.pem -o StrictHostKeyChecking=no" ./ ubuntu@localhost:/home/ubuntu/devops-infra-app
+
+      - name: Build and run Docker container on App Server via tunnel
+        run: |
+          ssh -p 2222 -i app_key.pem -o StrictHostKeyChecking=no ubuntu@localhost << 'EOF'
+            cd devops-infra-app
+            docker stop node-app || true
+            docker rm node-app || true
+            docker build -t node-app .
+            docker run -d --name node-app -p 3000:3000 node-app
+          EOF
+
